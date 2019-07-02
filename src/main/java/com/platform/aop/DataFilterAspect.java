@@ -52,22 +52,13 @@ public class DataFilterAspect {
         //获取参数
         Object params = point.getArgs()[0];
         if (params != null && params instanceof Map) {
-        	 BrandUserEntity brandUserEntity = (BrandUserEntity) ShiroUtils.getSessionAttribute(LoginTypeEntity.BRANDADMIN.toString());
-             if(brandUserEntity == null){
-            	 SysUserEntity user = ShiroUtils.getUserEntity();
-                 //如果不是超级管理员，则只能查询本部门及子部门数据
-                 if (user.getUserId() != Constant.SUPER_ADMIN) {
-                     Map map = (Map) params;
-                     map.put("filterSql", getFilterSQL(user, point));
-                 }
-             }else{
-            	  if (brandUserEntity.getUserType() != Constant.SUPER_ADMIN) {
-                      Map map = (Map) params;
-                      map.put("filterSql", getFilterSQLBrand(brandUserEntity, point));
-                  }
-             }
+        	BrandUserEntity brandUserEntity = (BrandUserEntity) ShiroUtils.getSessionAttribute(LoginTypeEntity.BRANDADMIN.toString());
+        	if (brandUserEntity.getUserType() != Constant.SUPER_ADMIN) {
+        		Map map = (Map) params;
+        		map.put("filterSql", getFilterSQLBrand(brandUserEntity, point));
+        	}
 
-            return;
+        	return;
         }
 
         throw new RRException("数据权限接口的参数必须为Map类型，且不能为NULL");

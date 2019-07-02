@@ -31,6 +31,7 @@ import com.platform.cache.J2CacheUtils;
 import com.platform.dao.BrandSysMenuDao;
 import com.platform.dao.BrandUserDao;
 import com.platform.entity.BrandUserEntity;
+import com.platform.entity.LoginTypeEntity;
 import com.platform.entity.BrandSysMenuEntity;
 import com.platform.utils.Constant;
 
@@ -67,12 +68,8 @@ public class BrandAdminRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
     	BrandUserEntity user = null;
-        // 1. 把AuthenticationToken转换为CustomizedToken
-        CustomizedToken customizedToken = (CustomizedToken) token;
-        // 2. 从CustomizedToken中获取登陆名
-        String username = customizedToken.getUsername();
-        String password = new String((char[]) customizedToken.getCredentials());
-        // 3. 若用户不存在，抛出UnknownAccountException异常
+    	 String username = (String) token.getPrincipal();
+         String password = new String((char[]) token.getCredentials());
         user = brandUserDao.queryObjectByUsername(username);
         if (user == null){
         	throw new UnknownAccountException("用户不存在！");
@@ -101,7 +98,7 @@ public class BrandAdminRealm extends AuthorizingRealm {
      // 把当前用户放入到session中
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession(true);
-        session.setAttribute(customizedToken.getLoginType(), user);
+        session.setAttribute(LoginTypeEntity.BRANDADMIN.toString(), user);
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         //更新用户时间
         user.setLastLoginTime(new Date());

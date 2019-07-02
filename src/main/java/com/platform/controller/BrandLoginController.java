@@ -4,7 +4,6 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.platform.annotation.SysLog;
 import com.platform.entity.LoginTypeEntity;
-import com.platform.shiro.CustomizedToken;
 import com.platform.utils.R;
 import com.platform.utils.ShiroUtils;
 import org.apache.shiro.authc.*;
@@ -67,16 +66,11 @@ public class BrandLoginController {
         }
 
         try {
-            Subject subject = ShiroUtils.getSubject();
-//            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-//            subject.login(token);
-            if(!subject.isAuthenticated()){
-            	//sha256加密
-                password = new Sha256Hash(password).toHex();
-                CustomizedToken customizedToken = new CustomizedToken(username, password, ADMIN_LOGIN_TYPE);
-                customizedToken.setRememberMe(false);
-                subject.login(customizedToken);
-            }
+        	Subject subject = ShiroUtils.getSubject();
+        	//sha256加密
+        	password = new Sha256Hash(password).toHex();
+        	UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            subject.login(token);
         } catch (UnknownAccountException e) {
             return R.error(e.getMessage());
         } catch (IncorrectCredentialsException e) {

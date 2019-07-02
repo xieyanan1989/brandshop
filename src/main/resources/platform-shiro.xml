@@ -6,7 +6,6 @@
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的UserRealm.java -->  
-<!-- 	<bean id="userRealm" class="com.platform.shiro.UserRealm"/> -->
 
 	<bean id="brandUserRealm" class="com.platform.shiro.BrandAdminRealm"/>
 	
@@ -26,15 +25,6 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="sessionManager" ref="sessionManager"></property>
 		<property name="realm" ref="brandUserRealm"/>
-<!-- 	    <property name="realm" ref="userRealm"/> -->
-<!-- 		<property name="authenticator" ref="authenticator"></property> -->
-<!-- 		<property name="authorizer" ref="customerAuthrizer"></property> -->
-<!-- 		<property name="realms"> -->
-<!--             <list> -->
-<!--             	<ref bean="brandUserRealm"/> -->
-<!--                  <ref bean="userRealm" /> -->
-<!--             </list> -->
-<!--         </property> -->
 	</bean>
 
 	<!-- Shiro主过滤器本身功能十分强大,其强大之处就在于它支持任何基于URL路径表达式的、自定义的过滤器的执行 -->
