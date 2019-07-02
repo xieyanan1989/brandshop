@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.BrandUserDao">
+
+    <resultMap type="com.platform.entity.BrandUserEntity" id="brandUserMap">
+        <result property="userId" column="user_id"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="lastLoginTime" column="last_login_time"/>
+        <result property="lastLoginIp" column="last_login_ip"/>
+        <result property="mobile" column="mobile"/>
+        <result property="status" column="status"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="qrData" column="qr_data"/>
+        <result property="userType" column="user_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.platform.entity.BrandUserEntity">
+		select
+			`user_id`,
+			`brand_id`,
+			`username`,
+			`password`,
+			`register_time`,
+			`last_login_time`,
+			`last_login_ip`,
+			`mobile`,
+			`status`,
+			`create_user_id`,
+			`dept_id`,
+			`qr_data`,
+			`user_type`
+		from nideshop_brand_user
+		where user_id = #{id}
+	</select>
+	
+	<select id="queryObjectByUsername" resultType="com.platform.entity.BrandUserEntity">
+		select
+			`user_id`,
+			`brand_id`,
+			`username`,
+			`password`,
+			`register_time`,
+			`last_login_time`,
+			`last_login_ip`,
+			`mobile`,
+			`status`,
+			`create_user_id`,
+			`dept_id`,
+			`qr_data`,
+			`user_type`
+		from nideshop_brand_user
+		where  username = #{username}
+	</select>
+
+	<select id="queryList" resultType="com.platform.entity.BrandUserEntity">
+		select u.*, (select d.name from sys_dept_brand d where d.dept_id = u.dept_id) deptName from nideshop_brand_user u
+		<where>
+			<if test="brandId != null">
+				and `brand_id` = #{brandId} 
+			</if>
+			<if test="createUserId != null">
+				and `create_user_id` = #{createUserId} 
+			</if>
+			<if test="username != null and username.trim() != ''">
+				and u.`username` like concat('%',#{username},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by u.${sidx} ${order}
+			</when>
+			<otherwise>
+				order by u.user_id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	 <select id="queryTotal" resultType="int">
+		select count(*) from nideshop_brand_user
+		<where>
+			<if test="createUserId != null">
+				and `create_user_id` = #{createUserId} 
+			</if>
+			<if test="username != null and username.trim() != ''">
+				and `username` like concat('%',#{username},'%') 
+			</if>
+			<if test="status != null and status.trim() != ''">
+				and `status` = #{status}
+			</if>
+		</where>
+	</select>
+	<insert id="save" parameterType="com.platform.entity.BrandUserEntity" useGeneratedKeys="true" keyProperty="userId">
+		insert into nideshop_brand_user(
+			`brand_id`,
+			`username`,
+			`password`,
+			`register_time`,
+			`last_login_time`,
+			`last_login_ip`,
+			`mobile`,
+			`status`,
+			`create_user_id`,
+			`dept_id`,
+			`qr_data`,
+			`user_type`)
+		values(
+			#{brandId},
+			#{username},
+			#{password},
+			#{registerTime},
+			#{lastLoginTime},
+			#{lastLoginIp},
+			#{mobile},
+			#{status},
+			#{createUserId},
+			#{deptId},
+			#{qrData},
+			#{userType})
+	</insert>
+	 
+	<update id="update" parameterType="com.platform.entity.BrandUserEntity">
+		update nideshop_brand_user 
+		<set>
+			<if test="brandId != null">`brand_id` = #{brandId}, </if>
+			<if test="username != null">`username` = #{username}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="registerTime != null">`register_time` = #{registerTime}, </if>
+			<if test="lastLoginTime != null">`last_login_time` = #{lastLoginTime}, </if>
+			<if test="lastLoginIp != null">`last_login_ip` = #{lastLoginIp}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="createUserId != null">`create_user_id` = #{createUserId}, </if>
+			<if test="deptId != null">`dept_id` = #{deptId}, </if>
+			<if test="qrData != null">`qr_data` = #{qrData}, </if>
+			<if test="userType != null">`user_type` = #{userType}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="delete">
+		delete from nideshop_brand_user where user_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from nideshop_brand_user where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+	
+	<update id="updatePassword" parameterType="map">
+		update nideshop_brand_user set `password` = #{newPassword} 
+			where user_id = #{userId} and password = #{password}
+	</update>
+
+	<!-- 查询用户的所有菜单ID --> 
+	<select id="queryAllMenuId" resultType="long">
+		select distinct rm.menu_id from sys_user_role_brand ur 
+			LEFT JOIN sys_role_menu_brand rm on ur.role_id = rm.role_id 
+		where ur.user_id = #{userId}
+	</select>
+	
+	<!-- 查询用户的所有权限 -->
+	<select id="queryAllPerms" resultType="string">
+		select m.perms from sys_user_role_brand ur 
+			LEFT JOIN sys_role_menu_brand rm on ur.role_id = rm.role_id 
+			LEFT JOIN sys_menu_brand m on rm.menu_id = m.menu_id 
+		where ur.user_id = #{userId}
+	</select>
+
+</mapper>
