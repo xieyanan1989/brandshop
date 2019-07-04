@@ -10,45 +10,50 @@ import com.platform.dao.OrderGoodsDao;
 import com.platform.entity.OrderGoodsEntity;
 import com.platform.service.OrderGoodsService;
 
-
+/**
+ * 订单商品表Service实现类
+ *
+ * @author lipengjun
+ * @email 939961241@qq.com
+ * @date 2019-07-03 09:36:51
+ */
 @Service("orderGoodsService")
 public class OrderGoodsServiceImpl implements OrderGoodsService {
-	@Autowired
-	private OrderGoodsDao orderGoodsDao;
-	
-	@Override
-	public OrderGoodsEntity queryObject(Integer id){
-		return orderGoodsDao.queryObject(id);
-	}
-	
-	@Override
-	public List<OrderGoodsEntity> queryList(Map<String, Object> map){
-		return orderGoodsDao.queryList(map);
-	}
-	
-	@Override
-	public int queryTotal(Map<String, Object> map){
-		return orderGoodsDao.queryTotal(map);
-	}
-	
-	@Override
-	public void save(OrderGoodsEntity orderGoods){
-		orderGoodsDao.save(orderGoods);
-	}
-	
-	@Override
-	public void update(OrderGoodsEntity orderGoods){
-		orderGoodsDao.update(orderGoods);
-	}
-	
-	@Override
-	public void delete(Integer id){
-		orderGoodsDao.delete(id);
-	}
-	
-	@Override
-	public void deleteBatch(Integer[] ids){
-		orderGoodsDao.deleteBatch(ids);
-	}
-	
+    @Autowired
+    private OrderGoodsDao orderGoodsDao;
+
+    @Override
+    public OrderGoodsEntity queryObject(Integer id) {
+        return orderGoodsDao.queryObject(id);
+    }
+
+    @Override
+    public List<OrderGoodsEntity> queryList(Map<String, Object> map) {
+        return orderGoodsDao.queryList(map);
+    }
+
+    @Override
+    public int queryTotal(Map<String, Object> map) {
+        return orderGoodsDao.queryTotal(map);
+    }
+
+    @Override
+    public int save(OrderGoodsEntity orderGoods) {
+        return orderGoodsDao.save(orderGoods);
+    }
+
+    @Override
+    public int update(OrderGoodsEntity orderGoods) {
+        return orderGoodsDao.update(orderGoods);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return orderGoodsDao.delete(id);
+    }
+
+    @Override
+    public int deleteBatch(Integer[] ids) {
+        return orderGoodsDao.deleteBatch(ids);
+    }
 }

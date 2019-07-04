@@ -60,7 +60,6 @@ public class OrderController extends BrandAbstractController{
     @RequestMapping("/save")
     @RequiresPermissions("order:save")
     public R save(@RequestBody OrderEntity order) {
-    	order.setBrandId(getBrandId());
         orderService.save(order);
 
         return R.ok();

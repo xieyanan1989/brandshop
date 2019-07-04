@@ -90,9 +90,8 @@ public class OrderEntity implements Serializable {
 
     //
     private String userName;
-  //品牌商ID
+    //品牌商ID
     private Integer brandId;
-    
     public String getOrderType() {
         return orderType;
     }
@@ -572,6 +571,6 @@ public class OrderEntity implements Serializable {
 	public void setBrandId(Integer brandId) {
 		this.brandId = brandId;
 	}
-    
+
     
 }

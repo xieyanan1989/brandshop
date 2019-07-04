@@ -3,7 +3,6 @@
 
 <mapper namespace="com.platform.dao.OrderGoodsDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.platform.entity.OrderGoodsEntity" id="orderGoodsMap">
         <result property="id" column="id"/>
         <result property="orderId" column="order_id"/>
@@ -18,17 +17,76 @@
         <result property="isReal" column="is_real"/>
         <result property="goodsSpecifitionIds" column="goods_specifition_ids"/>
         <result property="listPicUrl" column="list_pic_url"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="shippingStatus" column="shipping_status"/>
+        <result property="shippingId" column="shipping_id"/>
+        <result property="shippingName" column="shipping_name"/>
+        <result property="shippingFee" column="shipping_fee"/>
+        <result property="actualPrice" column="actual_price"/>
+        <result property="couponId" column="coupon_id"/>
+        <result property="couponPrice" column="coupon_price"/>
+        <result property="shippingNo" column="shipping_no"/>
+        <result property="payStatus" column="pay_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.OrderGoodsEntity">
-		select * from nideshop_order_goods where id = #{value}
+		select
+			`id`,
+			`order_id`,
+			`goods_id`,
+			`goods_name`,
+			`goods_sn`,
+			`product_id`,
+			`number`,
+			`market_price`,
+			`retail_price`,
+			`goods_specifition_name_value`,
+			`is_real`,
+			`goods_specifition_ids`,
+			`list_pic_url`,
+			`brand_id`,
+			`shipping_status`,
+			`shipping_id`,
+			`shipping_name`,
+			`shipping_fee`,
+			`actual_price`,
+			`coupon_id`,
+			`coupon_price`,
+			`shipping_no`,
+			`pay_status`
+		from nideshop_order_goods
+		where id = #{id}
 	</select>
 
 	<select id="queryList" resultType="com.platform.entity.OrderGoodsEntity">
-		select * from nideshop_order_goods
+		select
+    		`id`,
+    		`order_id`,
+    		`goods_id`,
+    		`goods_name`,
+    		`goods_sn`,
+    		`product_id`,
+    		`number`,
+    		`market_price`,
+    		`retail_price`,
+    		`goods_specifition_name_value`,
+    		`is_real`,
+    		`goods_specifition_ids`,
+    		`list_pic_url`,
+    		`brand_id`,
+    		`shipping_status`,
+    		`shipping_id`,
+    		`shipping_name`,
+    		`shipping_fee`,
+    		`actual_price`,
+    		`coupon_id`,
+    		`coupon_price`,
+    		`shipping_no`,
+    		`pay_status`
+		from nideshop_order_goods
 		WHERE 1=1
-		<if test="orderId != null and orderId != ''">
-			AND order_id = #{orderId}
+		<if test="name != null and name.trim() != ''">
+			AND name LIKE concat('%',#{name},'%')
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -46,42 +104,58 @@
  	<select id="queryTotal" resultType="int">
 		select count(*) from nideshop_order_goods
 		WHERE 1=1
-		<if test="orderId != null and orderId != ''">
-			AND order_id = #{orderId}
-		</if>
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.OrderGoodsEntity" useGeneratedKeys="true" keyProperty="id">
-		insert into nideshop_order_goods
-		(
-			`order_id`, 
-			`goods_id`, 
-			`goods_name`, 
-			`goods_sn`, 
-			`product_id`, 
-			`number`, 
-			`market_price`, 
-			`retail_price`, 
-			`goods_specifition_name_value`, 
-			`is_real`, 
-			`goods_specifition_ids`, 
-			`list_pic_url`
-		)
-		values
-		(
-			#{orderId}, 
-			#{goodsId}, 
-			#{goodsName}, 
-			#{goodsSn}, 
-			#{productId}, 
-			#{number}, 
-			#{marketPrice}, 
-			#{retailPrice}, 
-			#{goodsSpecifitionNameValue}, 
-			#{isReal}, 
-			#{goodsSpecifitionIds}, 
-			#{listPicUrl}
-		)
+		insert into nideshop_order_goods(
+			`order_id`,
+			`goods_id`,
+			`goods_name`,
+			`goods_sn`,
+			`product_id`,
+			`number`,
+			`market_price`,
+			`retail_price`,
+			`goods_specifition_name_value`,
+			`is_real`,
+			`goods_specifition_ids`,
+			`list_pic_url`,
+			`brand_id`,
+			`shipping_status`,
+			`shipping_id`,
+			`shipping_name`,
+			`shipping_fee`,
+			`actual_price`,
+			`coupon_id`,
+			`coupon_price`,
+			`shipping_no`,
+			`pay_status`)
+		values(
+			#{orderId},
+			#{goodsId},
+			#{goodsName},
+			#{goodsSn},
+			#{productId},
+			#{number},
+			#{marketPrice},
+			#{retailPrice},
+			#{goodsSpecifitionNameValue},
+			#{isReal},
+			#{goodsSpecifitionIds},
+			#{listPicUrl},
+			#{brandId},
+			#{shippingStatus},
+			#{shippingId},
+			#{shippingName},
+			#{shippingFee},
+			#{actualPrice},
+			#{couponId},
+			#{couponPrice},
+			#{shippingNo},
+			#{payStatus})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.OrderGoodsEntity">
@@ -98,7 +172,17 @@
 			<if test="goodsSpecifitionNameValue != null">`goods_specifition_name_value` = #{goodsSpecifitionNameValue}, </if>
 			<if test="isReal != null">`is_real` = #{isReal}, </if>
 			<if test="goodsSpecifitionIds != null">`goods_specifition_ids` = #{goodsSpecifitionIds}, </if>
-			<if test="listPicUrl != null">`list_pic_url` = #{listPicUrl}</if>
+			<if test="listPicUrl != null">`list_pic_url` = #{listPicUrl}, </if>
+			<if test="brandId != null">`brand_id` = #{brandId}, </if>
+			<if test="shippingStatus != null">`shipping_status` = #{shippingStatus}, </if>
+			<if test="shippingId != null">`shipping_id` = #{shippingId}, </if>
+			<if test="shippingName != null">`shipping_name` = #{shippingName}, </if>
+			<if test="shippingFee != null">`shipping_fee` = #{shippingFee}, </if>
+			<if test="actualPrice != null">`actual_price` = #{actualPrice}, </if>
+			<if test="couponId != null">`coupon_id` = #{couponId}, </if>
+			<if test="couponPrice != null">`coupon_price` = #{couponPrice}, </if>
+			<if test="shippingNo != null">`shipping_no` = #{shippingNo}, </if>
+			<if test="payStatus != null">`pay_status` = #{payStatus}</if>
 		</set>
 		where id = #{id}
 	</update>
