@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-import com.platform.dao.BrandFootprintDao;
+import com.platform.dao.FootprintDao;
 import com.platform.entity.FootprintEntity;
-import com.platform.service.BrandFootprintService;
+import com.platform.service.FootprintService;
 
 
-@Service("brandFootprintService")
-public class BrandFootprintServiceImpl implements BrandFootprintService {
+@Service("footprintService")
+public class FootprintServiceImpl implements FootprintService {
 	@Autowired
-	private BrandFootprintDao footprintDao;
+	private FootprintDao footprintDao;
 	
 	@Override
 	public FootprintEntity queryObject(Integer id){

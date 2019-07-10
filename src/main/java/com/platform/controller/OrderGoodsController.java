@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.platform.entity.OrderEntity;
 import com.platform.entity.OrderGoodsEntity;
 import com.platform.service.OrderGoodsService;
 import com.platform.utils.PageUtils;
@@ -22,11 +23,11 @@ import com.platform.utils.R;
  *
  * @author lipengjun
  * @email 939961241@qq.com
- * @date 2019-07-03 09:36:51
+ * @date 2019-07-05 10:26:26
  */
 @RestController
 @RequestMapping("ordergoods")
-public class OrderGoodsController {
+public class OrderGoodsController extends BrandAbstractController{
     @Autowired
     private OrderGoodsService orderGoodsService;
 
@@ -37,6 +38,7 @@ public class OrderGoodsController {
     @RequiresPermissions("ordergoods:list")
     public R list(@RequestParam Map<String, Object> params) {
         //查询列表数据
+    	params.put("brandId", getBrandId());
         Query query = new Query(params);
 
         List<OrderGoodsEntity> orderGoodsList = orderGoodsService.queryList(query);
@@ -53,9 +55,9 @@ public class OrderGoodsController {
     @RequestMapping("/info/{id}")
     @RequiresPermissions("ordergoods:info")
     public R info(@PathVariable("id") Integer id) {
-        OrderGoodsEntity orderGoods = orderGoodsService.queryObject(id);
+        OrderGoodsEntity orderGood = orderGoodsService.queryObject(id);
 
-        return R.ok().put("orderGoods", orderGoods);
+        return R.ok().put("orderGood", orderGood);
     }
 
     /**
@@ -96,9 +98,37 @@ public class OrderGoodsController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+    	params.put("brandId", getBrandId());
         List<OrderGoodsEntity> list = orderGoodsService.queryList(params);
 
         return R.ok().put("list", list);
+    }
+    
+    /**
+     * 确定收货
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/confirm")
+    @RequiresPermissions("order:confirm")
+    public R confirm(@RequestBody Integer id) {
+    	orderGoodsService.confirm(id);
+
+        return R.ok();
+    }
+
+    /**
+     * 发货
+     *
+     * @param order
+     * @return
+     */
+    @RequestMapping("/sendGoods")
+    @RequiresPermissions("order:sendGoods")
+    public R sendGoods(@RequestBody OrderGoodsEntity order) {
+    	orderGoodsService.sendGoods(order);
+
+        return R.ok();
     }
 }

@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author lipengjun
  * @email 939961241@qq.com
- * @date 2019-07-02 17:16:41
+ * @date 2019-07-05 10:26:26
  */
 public class OrderGoodsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -61,7 +61,42 @@ public class OrderGoodsEntity implements Serializable {
     private String shippingNo;
     //0未付款;1付款中;2已付款
     private Integer payStatus;
-
+    //新增时间
+    private Date addTime;
+    //1xx 表示订单取消和删除等状态 0订单创建成功等待付款，　101订单已取消，　102订单已删除。
+   // 2xx 表示订单支付状态　201订单已付款，等待发货。
+    //3xx 表示订单物流相关状态　300订单已发货， 301用户确认收货。
+    //4xx 表示订单退换货相关的状态　401 没有发货，退款　402 已收货，退款退货。
+    private Integer orderStatus;
+    //商品总价
+    private BigDecimal goodsPrice;
+  //会员Id
+    private Integer userId;
+    private String userName;
+  //确认时间
+    private Date confirmTime;
+  //支付时间
+    private Date payTime;
+    //收货人
+    private String consignee;
+    //国家
+    private String country;
+    //省
+    private String province;
+    //地市
+    private String city;
+    //区县
+    private String district;
+    //收货地址
+    private String address;
+    //联系电话
+    private String mobile;
+    //补充说明
+    private String postscript;
+    //品牌名称
+    private String brandName;
+    //订单编号
+    private String orderSn;
     /**
      * 设置：主键
      */
@@ -361,4 +396,162 @@ public class OrderGoodsEntity implements Serializable {
     public Integer getPayStatus() {
         return payStatus;
     }
+    /**
+     * 设置：新增时间
+     */
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
+
+    /**
+     * 获取：新增时间
+     */
+    public Date getAddTime() {
+        return addTime;
+    }
+    /**
+     * 设置：1xx 表示订单取消和删除等状态 0订单创建成功等待付款，　101订单已取消，　102订单已删除。
+    2xx 表示订单支付状态　201订单已付款，等待发货。
+    3xx 表示订单物流相关状态　300订单已发货， 301用户确认收货。
+    4xx 表示订单退换货相关的状态　401 没有发货，退款　402 已收货，退款退货。
+     */
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    /**
+     * 获取：1xx 表示订单取消和删除等状态 0订单创建成功等待付款，　101订单已取消，　102订单已删除。
+    2xx 表示订单支付状态　201订单已付款，等待发货。
+    3xx 表示订单物流相关状态　300订单已发货， 301用户确认收货。
+    4xx 表示订单退换货相关的状态　401 没有发货，退款　402 已收货，退款退货。
+     */
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
+    /**
+     * 设置：商品总价
+     */
+    public void setGoodsPrice(BigDecimal goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
+
+    /**
+     * 获取：商品总价
+     */
+    public BigDecimal getGoodsPrice() {
+        return goodsPrice;
+    }
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Date getConfirmTime() {
+		return confirmTime;
+	}
+
+	public void setConfirmTime(Date confirmTime) {
+		this.confirmTime = confirmTime;
+	}
+
+	public Date getPayTime() {
+		return payTime;
+	}
+
+	public void setPayTime(Date payTime) {
+		this.payTime = payTime;
+	}
+
+	public String getConsignee() {
+		return consignee;
+	}
+
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getPostscript() {
+		return postscript;
+	}
+
+	public void setPostscript(String postscript) {
+		this.postscript = postscript;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getOrderSn() {
+		return orderSn;
+	}
+
+	public void setOrderSn(String orderSn) {
+		this.orderSn = orderSn;
+	}
+    
 }

@@ -187,4 +187,14 @@ public class AddressEntity implements Serializable {
     public String getDetailInfo() {
         return detailInfo;
     }
+
+	@Override
+	public String toString() {
+		return "\"AddressEntity\": {\"id\":\"" + id + "\", userId\":\"" + userId + "\", userName\":\"" + userName
+				+ "\", telNumber\":\"" + telNumber + "\", postalCode\":\"" + postalCode + "\", nationalCode\":\""
+				+ nationalCode + "\", provinceName\":\"" + provinceName + "\", cityName\":\"" + cityName
+				+ "\", countyName\":\"" + countyName + "\", detailInfo\":\"" + detailInfo + "\", shopUserName\":\""
+				+ shopUserName + "}";
+	}
+    
 }

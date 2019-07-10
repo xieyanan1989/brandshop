@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.platform.entity.FootprintEntity;
-import com.platform.service.BrandFootprintService;
+import com.platform.service.FootprintService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
@@ -25,9 +25,9 @@ import com.platform.utils.R;
  */
 @RestController
 @RequestMapping("/brand/footprint")
-public class BrandFootprintController extends BrandAbstractController{
+public class FootprintController extends BrandAbstractController{
     @Autowired
-    private BrandFootprintService footprintService;
+    private FootprintService footprintService;
 
     /**
      * 列表

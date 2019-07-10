@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>美平超市票据</title>
+    <title>票据</title>
     #parse("sys/header.html")
 </head>
 <body class="gray-bg">
@@ -22,12 +22,10 @@
                         <h4>单据编号：</h4>
                         <h4 class="text-navy">{{order.orderSn}}</h4>
                         <address>
-                            <strong>美平超市</strong><br>
-                            美平超市地址<br>
-                            <abbr title="Phone">总机：</abbr> (86) xxxxxxxx
+                            <strong>{{order.brandName}}</strong><br>
                         </address>
                         <p>
-                            <span><strong>日期：</strong> {{nowDate}}</span>
+                            <span><strong>日期：</strong> {{order.addTime}}</span>
                         </p>
                     </div>
                 </div>
@@ -59,10 +57,19 @@
                 <table class="table invoice-total">
                     <tbody>
                     <tr>
-                        <td><strong>总计</strong>
+                    	<td><strong>总计：</strong>
                         </td>
                         <td>&yen;{{sumRetailPrice}}</td>
+                    
+                    	<td><strong>优惠：</strong>
+                        </td>
+                        <td>&yen;{{couponPrice}}</td>
+                        
+                        <td><strong>实付：</strong>
+                        </td>
+                        <td>&yen;{{sumRetailPrice-couponPrice}}</td>
                     </tr>
+                    
                     </tbody>
                 </table>
                 <div style="float: right;">
@@ -76,6 +83,7 @@
 
 <script type="text/javascript">
     let orderId = getQueryString("orderId");
+    let id = getQueryString("id");
     var vm = new Vue({
         el: '#rrapp',
         data: {
@@ -83,6 +91,7 @@
             order: {},
             orderGoods: {},
             sumRetailPrice: 0,
+            couponPrice: 0,
             nowDate: transDate(new Date())
         },
         methods: {
@@ -93,10 +102,10 @@
         },
         created: function () {
             Ajax.request({
-                url: "../order/info/" + orderId,
+                url: "../ordergoods/info/" + id,
                 async: true,
                 successCallback: function (r) {
-                    vm.order = r.order;
+                    vm.order = r.orderGood;
                 }
             });
             Ajax.request({
@@ -105,7 +114,8 @@
                 successCallback: function (r) {
                     vm.orderGoods = r.list;
                     for (let i = 0; i < r.list.length; i++) {
-                        vm.sumRetailPrice += r.list[i].retailPrice * r.list[i].number
+                        vm.sumRetailPrice += r.list[i].retailPrice * r.list[i].number;
+                        vm.couponPrice = r.list[i].couponPrice;
                     }
                 }
             });

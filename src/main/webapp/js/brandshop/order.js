@@ -206,7 +206,7 @@ let vm = new Vue({
             openWindow({
                 type: 2,
                 title: '<i class="fa fa-print"></i>打印票据',
-                content: '../shop/orderPrint.html?orderId=' + rowId
+                content: '../brandshop/orderPrint.html?orderId=' + rowId
             })
         }
     },

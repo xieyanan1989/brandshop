@@ -69,4 +69,16 @@ public interface OrderGoodsService {
      * @return 删除条数
      */
     int deleteBatch(Integer[] ids);
+    /**
+     * 确认收货
+     *
+     * @param id
+     */
+    int confirm(Integer id);
+	 /**
+     * 发货
+     *
+     * @param orderGoods 实体
+     */
+    int sendGoods(OrderGoodsEntity order);
 }

@@ -67,9 +67,6 @@
         <if test="orderStatus != null and orderStatus.trim() != ''">
             AND o.order_status = #{orderStatus}
         </if>
-        <if test="orderType != null and orderType.trim() != ''">
-            AND o.order_type = #{orderType}
-        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

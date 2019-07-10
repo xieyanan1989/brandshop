@@ -27,85 +27,97 @@
         <result property="couponPrice" column="coupon_price"/>
         <result property="shippingNo" column="shipping_no"/>
         <result property="payStatus" column="pay_status"/>
+        <result property="addTime" column="add_time"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="username"/>
+        <result property="confirmTime" column="confirm_time"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="consignee" column="consignee"/>
+        <result property="country" column="country"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="district" column="district"/>
+        <result property="address" column="address"/>
+        <result property="mobile" column="mobile"/>
+        <result property="postscript" column="postscript"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.OrderGoodsEntity">
-		select
-			`id`,
-			`order_id`,
-			`goods_id`,
-			`goods_name`,
-			`goods_sn`,
-			`product_id`,
-			`number`,
-			`market_price`,
-			`retail_price`,
-			`goods_specifition_name_value`,
-			`is_real`,
-			`goods_specifition_ids`,
-			`list_pic_url`,
-			`brand_id`,
-			`shipping_status`,
-			`shipping_id`,
-			`shipping_name`,
-			`shipping_fee`,
-			`actual_price`,
-			`coupon_id`,
-			`coupon_price`,
-			`shipping_no`,
-			`pay_status`
-		from nideshop_order_goods
-		where id = #{id}
+	select g.*,u.nickname as username,
+		o.country as country,
+		o.consignee as consignee,
+		o.province as province,
+		o.city as city,
+		o.district as district,
+		o.address as address,
+		o.mobile as mobile,
+		o.postscript as postscript,
+		b.name as brandName,
+		o.order_sn as orderSn
+        from nideshop_order o ,nideshop_order_goods g,nideshop_user u,nideshop_brand b
+        where o.id = g.order_id
+        and o.user_id = u.id
+        and g.brand_id = b.id
+        and g.id = #{id};
 	</select>
 
 	<select id="queryList" resultType="com.platform.entity.OrderGoodsEntity">
-		select
-    		`id`,
-    		`order_id`,
-    		`goods_id`,
-    		`goods_name`,
-    		`goods_sn`,
-    		`product_id`,
-    		`number`,
-    		`market_price`,
-    		`retail_price`,
-    		`goods_specifition_name_value`,
-    		`is_real`,
-    		`goods_specifition_ids`,
-    		`list_pic_url`,
-    		`brand_id`,
-    		`shipping_status`,
-    		`shipping_id`,
-    		`shipping_name`,
-    		`shipping_fee`,
-    		`actual_price`,
-    		`coupon_id`,
-    		`coupon_price`,
-    		`shipping_no`,
-    		`pay_status`
-		from nideshop_order_goods
-		WHERE 1=1
-		<if test="name != null and name.trim() != ''">
-			AND name LIKE concat('%',#{name},'%')
-		</if>
+		select g.*,
+		u.nickname as username,
+		o.order_sn as orderSn
+		from nideshop_order o
+		left join nideshop_order_goods g on o.id = g.order_id
+		left join nideshop_user u on o.user_id = u.id
+		where g.brand_id = #{brandId}
+        <if test="orderSn != null and orderSn.trim() != ''">
+            AND o.order_sn LIKE concat('%',#{orderSn},'%')
+        </if>
+        <if test="shippingStatus != null and shippingStatus.trim() != ''">
+            AND g.shipping_status = #{shippingStatus}
+        </if>
+        <if test="payStatus != null and payStatus.trim() != ''">
+            AND g.pay_status = #{payStatus}
+        </if>
+        <if test="orderStatus != null and orderStatus.trim() != ''">
+            AND g.order_status = #{orderStatus}
+        </if>
+        <if test="orderId != null and orderId.trim() != ''">
+            AND g.order_id = #{orderId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
             </when>
-			<otherwise>
-                order by id desc
-			</otherwise>
+            <otherwise>
+                order by orderSn desc
+            </otherwise>
         </choose>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
-		</if>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from nideshop_order_goods
-		WHERE 1=1
-        <if test="name != null and name.trim() != ''">
-            AND name LIKE concat('%',#{name},'%')
+		 select count(o.id)  from nideshop_order o 
+        left join nideshop_order_goods g on o.id = g.order_id
+        left join nideshop_user u on o.user_id = u.id
+		where g.brand_id = #{brandId}
+        <if test="orderSn != null and orderSn.trim() != ''">
+            AND g.goods_sn LIKE concat('%',#{orderSn},'%')
+        </if>
+        <if test="shippingStatus != null and shippingStatus.trim() != ''">
+            AND g.shipping_status = #{shippingStatus}
+        </if>
+        <if test="payStatus != null and payStatus.trim() != ''">
+            AND g.pay_status = #{payStatus}
+        </if>
+        <if test="orderStatus != null and orderStatus.trim() != ''">
+            AND g.order_status = #{orderStatus}
+        </if>
+        <if test="orderType != null and orderType.trim() != ''">
+            AND g.order_type = #{orderType}
         </if>
 	</select>
 	 
@@ -132,7 +144,10 @@
 			`coupon_id`,
 			`coupon_price`,
 			`shipping_no`,
-			`pay_status`)
+			`pay_status`,
+			`add_time`,
+			`order_status`,
+			`goods_price`)
 		values(
 			#{orderId},
 			#{goodsId},
@@ -155,7 +170,10 @@
 			#{couponId},
 			#{couponPrice},
 			#{shippingNo},
-			#{payStatus})
+			#{payStatus},
+			#{addTime},
+			#{orderStatus},
+			#{goodsPrice})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.OrderGoodsEntity">
@@ -182,7 +200,14 @@
 			<if test="couponId != null">`coupon_id` = #{couponId}, </if>
 			<if test="couponPrice != null">`coupon_price` = #{couponPrice}, </if>
 			<if test="shippingNo != null">`shipping_no` = #{shippingNo}, </if>
-			<if test="payStatus != null">`pay_status` = #{payStatus}</if>
+			<if test="payStatus != null">`pay_status` = #{payStatus}, </if>
+			<if test="addTime != null">`add_time` = #{addTime}, </if>
+			<if test="orderStatus != null">`order_status` = #{orderStatus}, </if>
+			<if test="goodsPrice != null">`goods_price` = #{goodsPrice},</if>
+			<if test="userId != null">`user_id` = #{userId},</if>
+			<if test="userName != null">`user_name` = #{userName},</if>
+			<if test="confirmTime != null">`confirm_time` = #{confirmTime},</if>
+			<if test="payTime != null">`pay_time` = #{payTime}</if>
 		</set>
 		where id = #{id}
 	</update>
