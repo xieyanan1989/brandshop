@@ -6,7 +6,6 @@
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的UserRealm.java -->  
-
 	<bean id="brandUserRealm" class="com.platform.shiro.BrandAdminRealm"/>
 	
     <bean id="cluterShiroSessionDao" class="com.platform.shiro.CluterShiroSessionDao"/>
@@ -69,14 +68,4 @@
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
     	<property name="securityManager" ref="securityManager"/>
 	</bean>
-	
-	<!-- 配置使用自定义认证器，可以实现多Realm认证，并且可以指定特定Realm处理特定类型的验证 -->
-<!--     <bean id="authenticator" class="com.platform.shiro.CustomizedModularRealmAuthenticator"> -->
-        <!-- 配置认证策略，只要有一个Realm认证成功即可，并且返回所有认证成功信息 -->
-<!--         <property name="authenticationStrategy"> -->
-<!--             <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"></bean> -->
-<!--         </property> -->
-<!--     </bean> -->
-    
-<!--     <bean id="customerAuthrizer" class="com.platform.shiro.CustomerAuthrizer"/> -->
 </beans>

@@ -182,7 +182,7 @@ var vm = new Vue({
             vm.showGoods = true;
             vm.goods = [];
             vm.user = [];
-            vm.getGoodss();
+//            vm.getGoodss();
             vm.getUsers();
             vm.selectData = {id: id, sendType: sendType};
             vm.sendSms = false;

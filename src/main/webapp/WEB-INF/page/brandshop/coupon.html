@@ -47,27 +47,27 @@
             </Form-item>
             <Form-item label="发放方式" prop="sendType">
                 <Radio-group v-model="coupon.sendType">
-                    <Radio label="0">
-                        <span>按订单发放</span>
-                    </Radio>
+<!--                     <Radio label="0"> -->
+<!--                         <span>按订单发放</span> -->
+<!--                     </Radio> -->
                     <Radio label="1">
                         <span>按用户发放</span>
                     </Radio>
-                    <Radio label="2">
-                        <span>商品转发送券</span>
-                    </Radio>
+<!--                     <Radio label="2"> -->
+<!--                         <span>商品转发送券</span> -->
+<!--                     </Radio> -->
                     <!--<Radio label="3">-->
                     <!--<span>按商品发放</span>-->
                     <!--</Radio>-->
-                    <Radio label="4">
-                        <span>新用户注册</span>
-                    </Radio>
+<!--                     <Radio label="4"> -->
+<!--                         <span>新用户注册</span> -->
+<!--                     </Radio> -->
                     <!--<Radio label="5">-->
                     <!--<span>线下发放</span>-->
                     <!--</Radio>-->
-                    <Radio label="7">
-                        <span>包邮优惠</span>
-                    </Radio>
+<!--                     <Radio label="7"> -->
+<!--                         <span>包邮优惠</span> -->
+<!--                     </Radio> -->
                 </Radio-group>
             </Form-item>
             <Form-item label="最小金额" prop="minAmount">
@@ -111,9 +111,9 @@
                     <i-option v-for="user in users" :value="user.id" :key="user.id">{{user.username}}</i-option>
                 </i-select>
             </Form-item>
-            <Form-item v-if="selectData.sendType == 1" label="短信通知">
-                <Checkbox v-model="sendSms">发送短信</Checkbox>
-            </Form-item>
+<!--             <Form-item v-if="selectData.sendType == 1" label="短信通知"> -->
+<!--                 <Checkbox v-model="sendSms">发送短信</Checkbox> -->
+<!--             </Form-item> -->
             <Form-item>
                 <i-button type="primary" @click="publishSubmit">提交</i-button>
                 <i-button type="warning" @click="reload"/>

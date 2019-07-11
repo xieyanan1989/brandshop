@@ -77,8 +77,8 @@ public class FootprintEntity implements Serializable {
     /**
      * 获取：记录时间
      */
-    @JsonSerialize(using = JsonTimeSerializer.class)
-    public Long getAddTime() {
+    @JsonSerialize( using = JsonTimeSerializer.class)
+    public Long getAddTime(){
         return addTime;
     }
 
