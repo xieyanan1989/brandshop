@@ -42,7 +42,7 @@
     		`order_num`,
     		`status`
 		from sys_menu_brand
-		WHERE 1=1
+		WHERE status = 0
 		<if test="name != null and name.trim() != ''">
 			AND name LIKE concat('%',#{name},'%')
 		</if>

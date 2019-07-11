@@ -131,7 +131,7 @@ var vm = new Vue({
             openWindow({
                 title: '优惠券',
                 type: 2,
-                content: '../shop/usercoupon.html?userId=' + id
+                content: '../brandshop/usercoupon.html?userId=' + id
             })
         },
         address: function () {
@@ -142,7 +142,7 @@ var vm = new Vue({
             openWindow({
                 title: '收获地址',
                 type: 2,
-                content: '../shop/address.html?userId=' + id
+                content: '../brandshop/address.html?userId=' + id
             })
         },
         shopCart: function () {
@@ -153,7 +153,7 @@ var vm = new Vue({
             openWindow({
                 title: '购物车',
                 type: 2,
-                content: '../shop/cart.html?userId=' + id
+                content: '../brandshop/cart.html?userId=' + id
             })
         },
         getInfo: function (id) {
