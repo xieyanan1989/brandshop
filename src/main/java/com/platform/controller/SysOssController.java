@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("sys/oss")
-public class SysOssController {
+public class SysOssController extends BrandAbstractController{
     @Autowired
     private SysOssService sysOssService;
     @Autowired
@@ -119,7 +119,8 @@ public class SysOssController {
             throw new RRException("上传文件不能为空");
         }
       //上传文件
-    	String url = ResourceUtil.getConfigByName("image.temp.dir")+file.getOriginalFilename();
+        String filename = getBrandId()+"_"+System.currentTimeMillis()+"_"+file.getOriginalFilename();
+    	String url = ResourceUtil.getConfigByName("image.temp.dir")+filename;
         try {
         	file.transferTo(new File(url));
 		} catch (Exception e) {
@@ -129,7 +130,7 @@ public class SysOssController {
         //上传文件
 //        String url = OSSFactory.build().upload(file);
 
-        url = ResourceUtil.getConfigByName("image.ip.temp.dir")+file.getOriginalFilename();
+        url = ResourceUtil.getConfigByName("image.ip.temp.dir")+filename;
         //保存文件信息
         SysOssEntity ossEntity = new SysOssEntity();
         ossEntity.setUrl(url);

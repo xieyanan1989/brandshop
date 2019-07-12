@@ -35,6 +35,9 @@
         <if test="userName != null and userName.trim() != ''">
             AND b.nickname LIKE concat('%',#{userName},'%')
         </if>
+        <if test="userId != null and userId.trim() != ''">
+            AND a.user_id =#{userId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -54,6 +57,9 @@
         where c.brand_id = #{brandId}
         <if test="userName != null and userName.trim() != ''">
             AND b.nickname LIKE concat('%',#{userName},'%')
+        </if>
+        <if test="userId != null and userId.trim() != ''">
+            AND a.user_id =#{userId}
         </if>
 	</select>
 

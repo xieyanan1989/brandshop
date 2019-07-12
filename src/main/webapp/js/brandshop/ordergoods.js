@@ -17,6 +17,8 @@ $(function () {
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
             {label: '订单号', name: 'orderSn', index: 'order_sn', width: 80},
+            {label: '商品名称', name: 'goodsName', index: 'goods_name', width: 100},
+            {label: '商品规格', name: 'goodsSpecifitionNameValue', index: 'goods_specifition_name_value', width: 100},
             {label: '会员', name: 'userName', index: 'user_name', width: 80},
             {
                 label: '订单状态', name: 'orderStatus', index: 'order_status', width: 60, formatter: function (value) {
@@ -73,7 +75,6 @@ $(function () {
             },
             {label: '快递公司', name: 'shippingName', index: 'shipping_name', width: 80},
             {label: '快递单号', name: 'shippingNo', index: 'shipping_No', width: 80},
-            {label: '商品名称', name: 'goodsName', index: 'goods_name', width: 100},
             {label: '实际支付金额', name: 'actualPrice', index: 'actual_price', width: 60},
             {label: '商品总价', name: 'goodsPrice', index: 'goods_price', width: 60},
             {

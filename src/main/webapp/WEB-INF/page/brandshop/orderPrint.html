@@ -43,7 +43,7 @@
                         <tbody>
                         <tr v-for="goods in orderGoods">
                             <td>
-                                <div><strong>{{goods.goodsName}}</strong>
+                                <div><strong>{{goods.goodsName+"<"+(goods.goodsSpecifitionNameValue == null ? "":goods.goodsSpecifitionNameValue)+">"}}</strong>
                                 </div>
                             </td>
                             <td>{{goods.number}}</td>
