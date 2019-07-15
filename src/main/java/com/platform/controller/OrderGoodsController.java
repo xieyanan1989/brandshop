@@ -111,7 +111,7 @@ public class OrderGoodsController extends BrandAbstractController{
      * @return
      */
     @RequestMapping("/confirm")
-    @RequiresPermissions("order:confirm")
+    @RequiresPermissions("ordergoods:confirm")
     public R confirm(@RequestBody Integer id) {
     	orderGoodsService.confirm(id);
 
@@ -125,7 +125,7 @@ public class OrderGoodsController extends BrandAbstractController{
      * @return
      */
     @RequestMapping("/sendGoods")
-    @RequiresPermissions("order:sendGoods")
+    @RequiresPermissions("ordergoods:sendGoods")
     public R sendGoods(@RequestBody OrderGoodsEntity order) {
     	orderGoodsService.sendGoods(order);
 
