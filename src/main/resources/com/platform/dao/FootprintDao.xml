@@ -4,7 +4,7 @@
 <mapper namespace="com.platform.dao.FootprintDao">
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.platform.entity.FootprintEntity" id="footprintMap">
+    <resultMap type="com.platform.entity.BrandFootprintEntity" id="footprintMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
@@ -13,7 +13,7 @@
         <result property="addTime" column="add_time"/>
     </resultMap>
 
-    <select id="queryObject" resultType="com.platform.entity.FootprintEntity">
+    <select id="queryObject" resultType="com.platform.entity.BrandFootprintEntity">
 		select * from nideshop_footprint where id = #{value}
 	</select>
 
@@ -49,7 +49,7 @@
         </if>
 	</select>
 
-    <insert id="save" parameterType="com.platform.entity.FootprintEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.platform.entity.BrandFootprintEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into nideshop_footprint
 		(
 			`user_id`, 
@@ -64,7 +64,7 @@
 		)
 	</insert>
 
-    <update id="update" parameterType="com.platform.entity.FootprintEntity">
+    <update id="update" parameterType="com.platform.entity.BrandFootprintEntity">
         update nideshop_footprint
         <set>
             <if test="userId != null">`user_id` = #{userId},</if>

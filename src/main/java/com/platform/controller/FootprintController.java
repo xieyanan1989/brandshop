@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.platform.entity.FootprintEntity;
+import com.platform.entity.BrandFootprintEntity;
 import com.platform.service.FootprintService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
@@ -24,7 +24,7 @@ import com.platform.utils.R;
  * @date 2017-08-13 10:41:08
  */
 @RestController
-@RequestMapping("/brand/footprint")
+@RequestMapping("brand/footprint")
 public class FootprintController extends BrandAbstractController{
     @Autowired
     private FootprintService footprintService;
@@ -39,7 +39,7 @@ public class FootprintController extends BrandAbstractController{
     	params.put("brandId", getBrandId());
         Query query = new Query(params);
 
-        List<FootprintEntity> footprintList = footprintService.queryList(query);
+        List<BrandFootprintEntity> footprintList = footprintService.queryList(query);
         int total = footprintService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(footprintList, total, query.getLimit(), query.getPage());
@@ -54,7 +54,7 @@ public class FootprintController extends BrandAbstractController{
     @RequestMapping("/info/{id}")
     @RequiresPermissions("footprint:info")
     public R info(@PathVariable("id") Integer id) {
-        FootprintEntity footprint = footprintService.queryObject(id);
+        BrandFootprintEntity footprint = footprintService.queryObject(id);
 
         return R.ok().put("footprint", footprint);
     }
@@ -64,7 +64,7 @@ public class FootprintController extends BrandAbstractController{
      */
     @RequestMapping("/save")
     @RequiresPermissions("footprint:save")
-    public R save(@RequestBody FootprintEntity footprint) {
+    public R save(@RequestBody BrandFootprintEntity footprint) {
         footprintService.save(footprint);
 
         return R.ok();
@@ -75,7 +75,7 @@ public class FootprintController extends BrandAbstractController{
      */
     @RequestMapping("/update")
     @RequiresPermissions("footprint:update")
-    public R update(@RequestBody FootprintEntity footprint) {
+    public R update(@RequestBody BrandFootprintEntity footprint) {
         footprintService.update(footprint);
 
         return R.ok();

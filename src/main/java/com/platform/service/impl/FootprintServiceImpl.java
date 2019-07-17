@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.platform.dao.FootprintDao;
-import com.platform.entity.FootprintEntity;
+import com.platform.entity.BrandFootprintEntity;
 import com.platform.service.FootprintService;
 
 
@@ -17,12 +17,12 @@ public class FootprintServiceImpl implements FootprintService {
 	private FootprintDao footprintDao;
 	
 	@Override
-	public FootprintEntity queryObject(Integer id){
+	public BrandFootprintEntity queryObject(Integer id){
 		return footprintDao.queryObject(id);
 	}
 	
 	@Override
-	public List<FootprintEntity> queryList(Map<String, Object> map){
+	public List<BrandFootprintEntity> queryList(Map<String, Object> map){
 		return footprintDao.queryList(map);
 	}
 	
@@ -32,12 +32,12 @@ public class FootprintServiceImpl implements FootprintService {
 	}
 	
 	@Override
-	public void save(FootprintEntity footprint){
+	public void save(BrandFootprintEntity footprint){
 		footprintDao.save(footprint);
 	}
 	
 	@Override
-	public void update(FootprintEntity footprint){
+	public void update(BrandFootprintEntity footprint){
 		footprintDao.update(footprint);
 	}
 	

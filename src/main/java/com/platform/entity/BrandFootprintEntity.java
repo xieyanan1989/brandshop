@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @email 939961241@qq.com
  * @date 2017-08-13 10:41:08
  */
-public class FootprintEntity implements Serializable {
+public class BrandFootprintEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //主键

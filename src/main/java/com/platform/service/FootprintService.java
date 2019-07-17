@@ -1,6 +1,6 @@
 package com.platform.service;
 
-import com.platform.entity.FootprintEntity;
+import com.platform.entity.BrandFootprintEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -14,15 +14,15 @@ import java.util.Map;
  */
 public interface FootprintService {
 	
-	FootprintEntity queryObject(Integer id);
+	BrandFootprintEntity queryObject(Integer id);
 	
-	List<FootprintEntity> queryList(Map<String, Object> map);
+	List<BrandFootprintEntity> queryList(Map<String, Object> map);
 	
 	int queryTotal(Map<String, Object> map);
 	
-	void save(FootprintEntity footprint);
+	void save(BrandFootprintEntity footprint);
 	
-	void update(FootprintEntity footprint);
+	void update(BrandFootprintEntity footprint);
 	
 	void delete(Integer id);
 	
