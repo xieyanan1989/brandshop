@@ -35,7 +35,6 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setAttribute("REQUEST_START_TIME", new Date());
-
         return true;
 
     }

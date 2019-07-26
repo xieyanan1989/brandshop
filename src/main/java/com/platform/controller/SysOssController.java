@@ -119,18 +119,25 @@ public class SysOssController extends BrandAbstractController{
             throw new RRException("上传文件不能为空");
         }
       //上传文件
-        String filename = getBrandId()+"_"+System.currentTimeMillis()+"_"+file.getOriginalFilename();
-    	String url = ResourceUtil.getConfigByName("image.temp.dir")+filename;
-        try {
-        	file.transferTo(new File(url));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+//        String fn = file.getOriginalFilename();
+//        String fileExt = fn.substring(fn.lastIndexOf(".") + 1);
+//        String filename = System.currentTimeMillis()+"."+fileExt;
+//        String path = ResourceUtil.getConfigByName("image.temp.dir")+"B_"+getBrandId();
+//        String url = "";
+//        try {
+//        	if(!new File(path).exists()){
+//                new File(path).mkdirs();
+//        	}
+//        	url = path+"/"+filename;
+//        	file.transferTo(new File(url));
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
         //上传文件
-//        String url = OSSFactory.build().upload(file);
+        String url = OSSFactory.build().upload(file);
 
-        url = ResourceUtil.getConfigByName("image.ip.temp.dir")+filename;
+//        url = ResourceUtil.getConfigByName("image.ip.temp.dir")+"B_"+getBrandId()+"/"+filename;
         //保存文件信息
         SysOssEntity ossEntity = new SysOssEntity();
         ossEntity.setUrl(url);

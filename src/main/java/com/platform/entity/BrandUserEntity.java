@@ -43,8 +43,6 @@ public class BrandUserEntity implements Serializable {
     private Long createUserId;
     //部门ID
     private Long deptId;
-    //小程序二维码数据
-    private String qrData;
     //用户类型 1:管理员 2:普通用户
     private Integer userType;
     /**
@@ -199,20 +197,6 @@ public class BrandUserEntity implements Serializable {
     public Long getDeptId() {
         return deptId;
     }
-    /**
-     * 设置：小程序二维码数据
-     */
-    public void setQrData(String qrData) {
-        this.qrData = qrData;
-    }
-
-    /**
-     * 获取：小程序二维码数据
-     */
-    public String getQrData() {
-        return qrData;
-    }
-    
     /**
      * 设置：用户类型 1:管理员 2:普通用户
      */

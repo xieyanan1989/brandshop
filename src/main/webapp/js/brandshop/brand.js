@@ -37,7 +37,10 @@ $(function () {
             }
         }, {
             label: '新品牌排序', name: 'newSortOrder', index: 'new_sort_order', width: 80
-        }]
+        },{
+        	label: '联系电话', name: 'telephone', index: 'telephone', width: 80
+        	}
+        ]
     });
 });
 

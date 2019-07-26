@@ -14,11 +14,11 @@ public class J2CacheUtils {
     /**
      * 商城业务缓存
      */
-    public static String SHOP_CACHE_NAME = "shopCache";
+    public static String SHOP_CACHE_NAME = "brandShopCache";
     /**
      * 系统缓存
      */
-    private static String SYS_CACHE_NAME = "sysCache";
+    private static String SYS_CACHE_NAME = "brandSysCache";
 
     private static CacheChannel cache = J2Cache.getChannel();
 

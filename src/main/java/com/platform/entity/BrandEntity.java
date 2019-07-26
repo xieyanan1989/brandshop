@@ -39,6 +39,10 @@ public class BrandEntity implements Serializable {
     private String newPicUrl;
     //排序
     private Integer newSortOrder;
+  //小程序二维码数据
+    private String qrData;
+    //联系电话
+    private String telephone;
 
     /**
      * 设置：主键
@@ -206,5 +210,31 @@ public class BrandEntity implements Serializable {
      */
     public Integer getNewSortOrder() {
         return newSortOrder;
+    }
+    /**
+     * 设置：小程序二维码数据
+     */
+    public void setQrData(String qrData) {
+        this.qrData = qrData;
+    }
+
+    /**
+     * 获取：小程序二维码数据
+     */
+    public String getQrData() {
+        return qrData;
+    }
+    /**
+     * 设置：联系电话
+     */
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    /**
+     * 获取：联系电话
+     */
+    public String getTelephone() {
+        return telephone;
     }
 }

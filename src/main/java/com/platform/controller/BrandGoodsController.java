@@ -35,7 +35,7 @@ public class BrandGoodsController extends BrandAbstractController{
     	params.put("brandId", getBrandId());
         Query query = new Query(params);
 
-        query.put("isDelete", 0);
+//        query.put("isDelete", 0);
         List<GoodsEntity> goodsList = goodsService.queryList(query);
         int total = goodsService.queryTotal(query);
 

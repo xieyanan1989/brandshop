@@ -96,7 +96,9 @@
         <if test="name != null and name != ''">
             AND nideshop_goods.name LIKE concat('%',#{name},'%')
         </if>
-        AND nideshop_goods.is_Delete = #{isDelete}
+        <if test="isDelete != null ">
+            AND nideshop_goods.is_Delete = #{isDelete}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

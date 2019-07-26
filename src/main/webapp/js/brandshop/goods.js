@@ -182,7 +182,6 @@ var vm = new Vue({
             var url = vm.goods.id == null ? "../brand/goods/save" : "../brand/goods/update";
             vm.goods.goodsDesc = $('#goodsDesc').editable('getHTML');
             vm.goods.goodsImgList = vm.uploadList;
-
             Ajax.request({
                 type: "POST",
                 url: url,
