@@ -119,7 +119,9 @@
         <if test="name != null and name != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
-        AND nideshop_goods.is_Delete = #{isDelete}
+        <if test="isDelete != null ">
+            AND nideshop_goods.is_Delete = #{isDelete}
+        </if>
     </select>
 
     <insert id="save" parameterType="com.platform.entity.GoodsEntity">
